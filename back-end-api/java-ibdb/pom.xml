@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.kishor-p.ibdb</groupId>
+	<artifactId>java-ibdb</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>ibdb</name>
+	<description>Java Service for Internet Book Database</description>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>ibdb-api</module>
+		<module>ibdb-service</module>
+		<module>ibdb-domain</module>
+	</modules>
+
+</project>
