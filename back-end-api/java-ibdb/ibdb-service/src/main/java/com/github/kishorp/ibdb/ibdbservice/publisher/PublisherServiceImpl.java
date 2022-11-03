@@ -3,6 +3,8 @@ package com.github.kishorp.ibdb.ibdbservice.publisher;
 import com.github.kishorp.ibdb.ibdbdomain.dto.PublisherDto;
 import com.github.kishorp.ibdb.ibdbdomain.entity.Publisher;
 import com.github.kishorp.ibdb.ibdbdomain.repos.PublisherRepository;
+import com.github.kishorp.ibdb.ibdbservice.error.ErrorCodes;
+import com.github.kishorp.ibdb.ibdbservice.error.IbdbServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,12 +72,12 @@ public class PublisherServiceImpl implements PublisherService{
     }
 
     @Override
-    public PublisherDto addNewPublisher(PublisherDto newPublisherDto) {
-        PublisherDto createdPublisherDto = null;
+    public PublisherDto addNewPublisher(PublisherDto newPublisherDto) throws IbdbServiceException {
+        PublisherDto createdPublisherDto ;
         if(this.fetchPublisherByExactName(newPublisherDto.getName()) != null){
-            log.error("409 Duplicate Name");
+            throw new IbdbServiceException(ErrorCodes.ERR_01_409_01);
         } else if(this.fetchPublisherByEmail(newPublisherDto.getEmail()) != null){
-            log.error("409 Duplicate Email");
+            throw new IbdbServiceException(ErrorCodes.ERR_01_409_02);
         } else {
             Publisher newPublisher = publisherRepo.save(convertDtoToPublisher(newPublisherDto));
             createdPublisherDto = convertPublisherToDto(newPublisher);
@@ -84,15 +86,15 @@ public class PublisherServiceImpl implements PublisherService{
     }
 
     @Override
-    public PublisherDto updatePublisher(PublisherDto publisherDto) {
+    public PublisherDto updatePublisher(PublisherDto publisherDto) throws IbdbServiceException {
         PublisherDto updatedPublisherDto = null;
 
         PublisherDto dtoByName = this.fetchPublisherByExactName(publisherDto.getName());
         PublisherDto dtoByEmail = this.fetchPublisherByEmail(publisherDto.getEmail());
         if( dtoByName != null && !dtoByName.getId().equals(publisherDto.getId())){
-            log.error("409 Duplicate Name");
+            throw new IbdbServiceException(ErrorCodes.ERR_01_409_01);
         } else if( dtoByEmail != null && !dtoByEmail.getId().equals(publisherDto.getId())){
-            log.error("409 Duplicate Email");
+            throw new IbdbServiceException(ErrorCodes.ERR_01_409_02);
         } else {
             Publisher updatedPublisher = publisherRepo.save(convertDtoToPublisher(publisherDto));
             updatedPublisherDto = convertPublisherToDto(updatedPublisher);
@@ -103,7 +105,6 @@ public class PublisherServiceImpl implements PublisherService{
     @Override
     public void deletePublisherById(String id) {
         publisherRepo.deleteById(id);
-
     }
 
 

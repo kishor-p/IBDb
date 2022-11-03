@@ -1,6 +1,7 @@
 package com.github.kishorp.ibdb.ibdbservice.publisher;
 
 import com.github.kishorp.ibdb.ibdbdomain.dto.PublisherDto;
+import com.github.kishorp.ibdb.ibdbservice.error.IbdbServiceException;
 
 import java.util.List;
 
@@ -16,9 +17,9 @@ public interface PublisherService {
 
     PublisherDto fetchPublisherById(String id);
 
-    PublisherDto addNewPublisher(PublisherDto newPublisherDto);
+    PublisherDto addNewPublisher(PublisherDto newPublisherDto) throws IbdbServiceException;
 
-    PublisherDto updatePublisher(PublisherDto publisherDto);
+    PublisherDto updatePublisher(PublisherDto publisherDto) throws IbdbServiceException;
 
     void deletePublisherById(String id);
 
