@@ -7,15 +7,9 @@ import java.util.List;
 
 public interface PublisherService {
 
-    List<PublisherDto> fetchAllPublishers();
+    List<PublisherDto> fetchAllPublishers(String name, String email);
 
-    List<PublisherDto> fetchAllPublishersWithSimilarName(String name);
-
-    PublisherDto fetchPublisherByExactName(String name);
-
-    PublisherDto fetchPublisherByEmail(String email);
-
-    PublisherDto fetchPublisherById(String id);
+    PublisherDto fetchPublisherById(String id) throws IbdbServiceException;
 
     PublisherDto addNewPublisher(PublisherDto newPublisherDto) throws IbdbServiceException;
 

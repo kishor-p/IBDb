@@ -25,8 +25,8 @@ public class PublisherServiceImpl implements PublisherService{
     PublisherRepository publisherRepo;
 
     @Override
-    public List<PublisherDto> fetchAllPublishers() {
-        List<Publisher> allPublishers = publisherRepo.findAll();
+    public List<PublisherDto> fetchAllPublishers(String name, String email) {
+        List<Publisher> allPublishers = publisherRepo.filterByNameEmail(name, email);
         List<PublisherDto> allPublisherDtos = new ArrayList<>();
         for (Publisher pub: allPublishers) {
             allPublisherDtos.add(convertPublisherToDto(pub));
@@ -34,49 +34,25 @@ public class PublisherServiceImpl implements PublisherService{
         return allPublisherDtos;
     }
 
-    @Override
-    public List<PublisherDto> fetchAllPublishersWithSimilarName(String name) {
-        List<Publisher> allPublishers = publisherRepo.findByNameRegex(name);
-        List<PublisherDto> allPublisherDtos = new ArrayList<>();
-        for (Publisher pub: allPublishers) {
-            allPublisherDtos.add(convertPublisherToDto(pub));
-        }
-        return allPublisherDtos;
-    }
 
     @Override
-    public PublisherDto fetchPublisherByExactName(String name) {
-        Optional<Publisher> pub =publisherRepo.findByName(name);
-        PublisherDto publisherDto = null;
-        if(pub.isPresent())
-            publisherDto = convertPublisherToDto(pub.get());
-        return publisherDto;
-    }
-
-    @Override
-    public PublisherDto fetchPublisherByEmail(String email) {
-        Optional<Publisher> pub =publisherRepo.findByEmail(email);
-        PublisherDto publisherDto = null;
-        if(pub.isPresent())
-            publisherDto = convertPublisherToDto(pub.get());
-        return publisherDto;
-    }
-
-    @Override
-    public PublisherDto fetchPublisherById(String id) {
+    public PublisherDto fetchPublisherById(String id)  throws IbdbServiceException{
         Optional<Publisher> pub = publisherRepo.findById(id);
         PublisherDto publisherDto = null;
-        if(pub.isPresent())
+        if(pub.isPresent()) {
             publisherDto = convertPublisherToDto(pub.get());
+        } else {
+            throw new IbdbServiceException(ErrorCodes.ERR_01_404_03);
+        }
         return publisherDto;
     }
 
     @Override
     public PublisherDto addNewPublisher(PublisherDto newPublisherDto) throws IbdbServiceException {
         PublisherDto createdPublisherDto ;
-        if(this.fetchPublisherByExactName(newPublisherDto.getName()) != null){
+        if(this.fetchAllPublishers(newPublisherDto.getName(), null) != null){
             throw new IbdbServiceException(ErrorCodes.ERR_01_409_01);
-        } else if(this.fetchPublisherByEmail(newPublisherDto.getEmail()) != null){
+        } else if(this.fetchAllPublishers(null, newPublisherDto.getEmail()) != null){
             throw new IbdbServiceException(ErrorCodes.ERR_01_409_02);
         } else {
             Publisher newPublisher = publisherRepo.save(convertDtoToPublisher(newPublisherDto));
@@ -89,8 +65,8 @@ public class PublisherServiceImpl implements PublisherService{
     public PublisherDto updatePublisher(PublisherDto publisherDto) throws IbdbServiceException {
         PublisherDto updatedPublisherDto = null;
 
-        PublisherDto dtoByName = this.fetchPublisherByExactName(publisherDto.getName());
-        PublisherDto dtoByEmail = this.fetchPublisherByEmail(publisherDto.getEmail());
+        PublisherDto dtoByName = this.fetchAllPublishers(publisherDto.getName(), null).get(0);
+        PublisherDto dtoByEmail = this.fetchAllPublishers(null, publisherDto.getEmail()).get(0);
         if( dtoByName != null && !dtoByName.getId().equals(publisherDto.getId())){
             throw new IbdbServiceException(ErrorCodes.ERR_01_409_01);
         } else if( dtoByEmail != null && !dtoByEmail.getId().equals(publisherDto.getId())){
