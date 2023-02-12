@@ -16,22 +16,9 @@ public class IbdbExceptionHandler {
 
     @ExceptionHandler(value = {IbdbServiceException.class})
     public ResponseEntity<ProblemDetail> handleIbdbServiceException(IbdbServiceException ex, WebRequest wr){
-        return new ResponseEntity<>(new ProblemDetail(ex), HttpStatus.valueOf(ex.getHttpStatus()));
+        ProblemDetail pd = new ProblemDetail(ex);
+        log.info(pd.toString());
+        return new ResponseEntity<>(pd, HttpStatus.valueOf(ex.getHttpStatus()));
     }
 }
 
-@Data
-@NoArgsConstructor
-class ProblemDetail {
-    private String errorTitle;
-    private String errorCode;
-    private String errorDetails;
-    private Integer httpStatus;
-
-    ProblemDetail(IbdbServiceException ex){
-        this.errorCode = ex.getErrorCode();
-        this.errorDetails = ex.getErrorDetails();
-        this.errorTitle = ex.getErrorTitle();
-        this.httpStatus = ex.getHttpStatus();
-    }
-}

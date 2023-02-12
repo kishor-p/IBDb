@@ -1,5 +1,8 @@
 package com.github.kishorp.ibdb.ibdbapi;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +13,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication
 @ComponentScan({"com.github.kishorp.ibdb.ibdbapi.*", "com.github.kishorp.ibdb.ibdbservice.*"})
 @EnableMongoRepositories({"com.github.kishorp.ibdb.ibdbdomain.repos"})
+@OpenAPIDefinition(info = @Info(
+		title = "IBDb API",
+		version = "0.0",
+		description = "Internet-Book-Database is a database of all the published books. This is an API to perform operations on IBDb",
+		contact = @Contact(url = "https://github.com/kishor-p/IBDb", name = "Kishor Prakash", email = "kishor.p.15389@gmail.com"))
+)
 public class IbdbApiApplication {
 
 	public static void main(String[] args) {
