@@ -11,6 +11,11 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <li> Implementation of custom filtering Interface.</li>
+ * <li>Uses MongoTemplate and Query</li>
+ *
+ */
 @Repository
 public class PublisherFilteringRepositoryImpl implements PublisherFilteringRepository{
 
@@ -21,18 +26,17 @@ public class PublisherFilteringRepositoryImpl implements PublisherFilteringRepos
     @Override
     public List<Publisher> filterByNameEmail(String name, String email) {
 
-
         Query q = new Query();
-        final List<Criteria> criterias = new ArrayList<>();
+        final List<Criteria> criteriaList = new ArrayList<>();
         if(StringUtils.hasText(name)){
-            criterias.add(Criteria.where("name").regex(name));
+            criteriaList.add(Criteria.where("name").regex(name));
         }
 
         if(StringUtils.hasText(email)){
-            criterias.add(Criteria.where("email").regex(email));
+            criteriaList.add(Criteria.where("email").regex(email));
         }
-        if (!criterias.isEmpty())
-            q.addCriteria(new Criteria().andOperator(criterias.toArray(new Criteria[criterias.size()])));
+        if (!criteriaList.isEmpty())
+            q.addCriteria(new Criteria().andOperator(criteriaList.toArray(new Criteria[criteriaList.size()])));
         return mongoTemplate.find(q, Publisher.class);
     }
 }

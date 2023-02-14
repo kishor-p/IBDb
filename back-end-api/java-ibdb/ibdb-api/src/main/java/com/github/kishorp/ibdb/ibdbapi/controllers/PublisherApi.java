@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+/**
+ * <li> API that defines all operations for <b>publihsers</b> collection </li>
+ * <li> Operates at endpoint: <code>[BASE_URL]/publishers</code> </li>
+ * <li> Read more about each operation at swagger page </li>
+ */
 @RequestMapping("/publishers")
 @CrossOrigin("http://localhost:4200")
 @Tag(name = "Publisher API",description = "Operations related Book Publishers")

@@ -14,6 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * <li> Implementation of {@link  PublisherService}. </li>
+ * <li> Please refer the {@link  PublisherService} for detailed docs. </li>
+ *
+ */
 @Service
 @Slf4j
 public class PublisherServiceImpl implements PublisherService{
@@ -42,7 +47,7 @@ public class PublisherServiceImpl implements PublisherService{
         if(pub.isPresent()) {
             publisherDto = convertPublisherToDto(pub.get());
         } else {
-            throw new IbdbServiceException(ErrorCodes.ERR_01_404_03);
+            throw new IbdbServiceException(ErrorCodes.ERR_01_404_03, new String[]{id});
         }
         return publisherDto;
     }
@@ -83,13 +88,24 @@ public class PublisherServiceImpl implements PublisherService{
         publisherRepo.deleteById(id);
     }
 
-
-    PublisherDto convertPublisherToDto(Publisher publisher){
+    /**
+     * Converts Entity: {@link Publisher}  to DTO: {@link PublisherDto}
+     *
+     * @param publisher Entity that needs to be converted
+     * @return Converted DTO
+     */
+    public PublisherDto convertPublisherToDto(Publisher publisher){
         PublisherDto dto = modelMapper.map(publisher, PublisherDto.class);
         return dto;
     }
 
-    Publisher convertDtoToPublisher(PublisherDto publisherDto){
+    /**
+     * Converts DTO: {@link PublisherDto} to ENTITY: {@link Publisher}
+     *
+     * @param publisherDto DTO that needs to be converted
+     * @return Converted Entity
+     */
+    public  Publisher convertDtoToPublisher(PublisherDto publisherDto){
         Publisher publisher = modelMapper.map(publisherDto, Publisher.class);
         return publisher;
     }

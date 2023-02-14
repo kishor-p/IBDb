@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * <li> Root Controller that displays basic info about SWAGGER at base URL </li>
+ */
 @RestController("/")
 @CrossOrigin("http://localhost:4200")
 @Slf4j
