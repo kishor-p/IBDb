@@ -1,4 +1,4 @@
-package com.github.kishorp.ibdb.ibdbdomain.repos;
+package com.github.kishorp.ibdb.ibdbdomain.repos.publishers;
 import com.github.kishorp.ibdb.ibdbdomain.entity.Publisher;
 import java.util.List;
 

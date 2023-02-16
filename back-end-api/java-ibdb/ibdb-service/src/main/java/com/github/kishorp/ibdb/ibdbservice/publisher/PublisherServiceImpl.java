@@ -2,7 +2,7 @@ package com.github.kishorp.ibdb.ibdbservice.publisher;
 
 import com.github.kishorp.ibdb.ibdbdomain.dto.PublisherDto;
 import com.github.kishorp.ibdb.ibdbdomain.entity.Publisher;
-import com.github.kishorp.ibdb.ibdbdomain.repos.PublisherRepository;
+import com.github.kishorp.ibdb.ibdbdomain.repos.publishers.PublisherRepository;
 import com.github.kishorp.ibdb.ibdbservice.error.ErrorCodes;
 import com.github.kishorp.ibdb.ibdbservice.error.IbdbServiceException;
 import lombok.extern.slf4j.Slf4j;
