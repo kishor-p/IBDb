@@ -5,13 +5,21 @@ import com.github.kishorp.ibdb.ibdbdomain.entity.Author;
 import com.github.kishorp.ibdb.ibdbdomain.repos.authors.AuthorRepository;
 import com.github.kishorp.ibdb.ibdbservice.error.ErrorCodes;
 import com.github.kishorp.ibdb.ibdbservice.error.IbdbServiceException;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * <li> Implementation of {@link  AuthorService}. </li>
+ * <li> Please refer the {@link  AuthorService} for detailed docs. </li>
+ *
+ */
+@Service
+@Slf4j
 public class AuthorServiceImpl implements AuthorService{
 
     @Autowired

@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  */
 @SpringBootApplication
 @ComponentScan({"com.github.kishorp.ibdb.ibdbapi.*", "com.github.kishorp.ibdb.ibdbservice.*"})
-@EnableMongoRepositories({"com.github.kishorp.ibdb.ibdbdomain.repos"})
+@EnableMongoRepositories({"com.github.kishorp.ibdb.ibdbdomain.repos.*"})
 @OpenAPIDefinition(info = @Info(
 		title = "IBDb API",
 		version = "0.0",

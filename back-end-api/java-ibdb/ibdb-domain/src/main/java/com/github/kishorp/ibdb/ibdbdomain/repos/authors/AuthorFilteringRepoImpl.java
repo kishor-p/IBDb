@@ -20,7 +20,7 @@ import java.util.List;
 public class AuthorFilteringRepoImpl implements AuthorFilteringRepository{
 
     @Autowired
-    private MongoTemplate mongoTemplate;
+    MongoTemplate mongoTemplate;
 
     @Override
     public List<Author> filterByNameEmail(String name, String email) {
