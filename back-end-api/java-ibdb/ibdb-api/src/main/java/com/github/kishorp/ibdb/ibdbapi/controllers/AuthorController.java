@@ -1,8 +1,8 @@
 package com.github.kishorp.ibdb.ibdbapi.controllers;
 
 import com.github.kishorp.ibdb.ibdbdomain.dto.AuthorDto;
-import com.github.kishorp.ibdb.ibdbservice.error.IbdbServiceException;
 import com.github.kishorp.ibdb.ibdbservice.author.AuthorService;
+import com.github.kishorp.ibdb.ibdbservice.error.IbdbServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * <li> Controller to implement the {@link AuthorApi} </li>
- */
-@Slf4j
 @RestController
+@Slf4j
 public class AuthorController implements AuthorApi{
 
     @Autowired
     AuthorService authorService;
+
 
     @Override
     public ResponseEntity<List<AuthorDto>> getAllAuthors(String name, String email) {
@@ -48,5 +46,4 @@ public class AuthorController implements AuthorApi{
         authorService.deleteAuthorById(id);
         return new ResponseEntity("Deleted", HttpStatus.OK);
     }
-
 }

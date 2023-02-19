@@ -16,16 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
-/**
- * <li> API that defines all operations for <b>publihsers</b> collection </li>
- * <li> Operates at endpoint: <code>[BASE_URL]/publishers</code> </li>
- * <li> Read more about each operation at swagger page </li>
- */
-@RequestMapping("/publishers")
+@RequestMapping("/authors")
 @CrossOrigin("http://localhost:4200")
 @Tag(name = "Author API",description = "Operations related Book Authors")
 public interface AuthorApi {
+
 
     @Operation(
             summary = "Lists all available Authors",
@@ -40,10 +35,8 @@ public interface AuthorApi {
             }
     )
     @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
-    ResponseEntity<List<AuthorDto>> getAllAuthors( @Parameter(required = false) @RequestParam(value="name", required = false) String name,
-                                                         @Parameter(required = false) @RequestParam(value="email", required = false) String email);
-
-
+    ResponseEntity<List<AuthorDto>> getAllAuthors(@Parameter(required = false) @RequestParam(value="name", required = false) String name,
+                                                  @Parameter(required = false) @RequestParam(value="email", required = false) String email);
 
     @Operation(
             summary = "Fetches a Published based on ID",
@@ -90,7 +83,7 @@ public interface AuthorApi {
             }
     )
     @PutMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    ResponseEntity<AuthorDto> putUpdatedAuthor(@RequestBody AuthorDto publisherDto) throws IbdbServiceException ;
+    ResponseEntity<AuthorDto> putUpdatedAuthor(@RequestBody AuthorDto publisherDto) throws IbdbServiceException;
 
     @Operation(
             summary = "Deletes an existing Author",

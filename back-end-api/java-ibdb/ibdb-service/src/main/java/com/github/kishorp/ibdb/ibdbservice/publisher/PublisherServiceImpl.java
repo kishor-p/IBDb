@@ -55,9 +55,9 @@ public class PublisherServiceImpl implements PublisherService{
     @Override
     public PublisherDto addNewPublisher(PublisherDto newPublisherDto) throws IbdbServiceException {
         PublisherDto createdPublisherDto ;
-        if(this.fetchAllPublishers(newPublisherDto.getName(), null) != null){
+        if(this.fetchAllPublishers(newPublisherDto.getName(), null).size() > 0){
             throw new IbdbServiceException(ErrorCodes.ERR_01_409_01);
-        } else if(this.fetchAllPublishers(null, newPublisherDto.getEmail()) != null){
+        } else if(this.fetchAllPublishers(null, newPublisherDto.getEmail()) .size() > 0){
             throw new IbdbServiceException(ErrorCodes.ERR_01_409_02);
         } else {
             Publisher newPublisher = publisherRepo.save(convertDtoToPublisher(newPublisherDto));

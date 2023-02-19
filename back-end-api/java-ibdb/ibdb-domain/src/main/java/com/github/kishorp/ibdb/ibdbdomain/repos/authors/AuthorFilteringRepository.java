@@ -1,13 +1,13 @@
 package com.github.kishorp.ibdb.ibdbdomain.repos.authors;
+
 import com.github.kishorp.ibdb.ibdbdomain.entity.Author;
+
 import java.util.List;
 
 /**
- *
- * - Interface for custom filter method apart from standard Mongo Repo methods
+ *Interface for custom filter method apart from standard Mongo Repo methods
  */
 public interface AuthorFilteringRepository {
-
 
     /**
      * <li>Filters All Authors by Name and Email</li>
@@ -19,6 +19,5 @@ public interface AuthorFilteringRepository {
      *         <li> In no params provided then returns all available Authors.</li>
      *         <li>Empty List when no records found matching params</li>
      */
-    List<Author> filterByNameEmail(String name, String email);
-
+    List<Author> filterAuthorsByNameEmail(String name, String email);
 }
